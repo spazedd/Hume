@@ -1,27 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><title>okbutwhat Analysis Hub</title><style>body { font-family: Arial; max-width: 800px; margin: auto; }</style></head>
+<head>
+    <title>okbutwhat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: white;
+            color: #1a1a1a;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* Header Section */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #e1e5e9;
+            padding: 20px 24px;
+            z-index: 100;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .header.scrolled {
+            background: #1a1a1a;
+            border-bottom-color: #333;
+        }
+
+        .header.scrolled .site-title {
+            color: white;
+        }
+
+        .site-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+            margin-left: 16px;
+        }
+
+        .menu-icon {
+            cursor: pointer;
+            font-weight: 300;
+            font-size: 18px;
+            color: #666;
+            transition: color 0.2s ease;
+            padding: 8px;
+            margin: -8px;
+        }
+
+        .header.scrolled .menu-icon {
+            color: white;
+        }
+
+        .menu-icon:hover {
+            color: #1a1a1a;
+        }
+
+        .header.scrolled .menu-icon:hover {
+            color: #ccc;
+        }
+
+        /* Desktop Navigation */
+        .desktop-nav {
+            display: none;
+            align-items: center;
+            gap: 32px;
+            margin-left: auto;
+        }
+
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .desktop-nav li {
+            position: relative;
+        }
+
+        .desktop-nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .desktop-nav > ul > li > a {
+            display: block;
+            padding: 8px 0;
+        }
+
+        .desktop-nav li ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 6px;
+            padding: 12px;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 101;
+        }
+
+        .desktop-nav li ul li {
+            margin: 0;
+        }
+
+        .desktop-nav li ul a {
+            padding: 8px 12px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .desktop-nav li ul a:hover {
+            background: #edf2f7;
+        }
+
+        .desktop-nav li:hover > ul {
+            display: block;
+        }
+
+        .desktop-nav a:hover {
+            color: #1a1a1a;
+        }
+
+        .header.scrolled .desktop-nav a {
+            color: #ccc;
+        }
+
+        .header.scrolled .desktop-nav a:hover {
+            color: white;
+        }
+
+        .desktop-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #2563eb;
+            transition: width 0.2s ease;
+        }
+
+        .desktop-nav > ul > li > a::after {
+            bottom: 4px;
+        }
+
+        .desktop-nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Sidebar - Smaller width, less cluttered */
+        .sidebar {
+            position: fixed;
+            left: -220px;
+            top: 0;
+            width: 220px;
+            height: 100vh;
+            background: #fafbfc;
+            border-right: 1px solid #e1e5e9;
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 60px 16px 16px; /* Reduced padding for less clutter */
+            overflow-y: auto;
+            box-shadow: 2px 0 12px rgba(0,0,0,0.08);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px; /* Reduced margin for less clutter */
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #424a53;
+            display: block;
+            padding: 8px 10px; /* Reduced padding */
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover {
+            background: #edf2f7;
+            color: #1a1a1a;
+        }
+
+        .sidebar-section {
+            margin-bottom: 16px; /* Reduced margin */
+        }
+
+        .sidebar-section h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px; /* Reduced */
+            padding-left: 10px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 120px 24px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .main-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.5;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 40px 0 24px;
+            color: #1a1a1a;
+            font-weight: 600;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f0f2f5;
+        }
+
+        p {
+            font-size: 15px;
+            margin-bottom: 16px;
+            color: #424a53;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #424a53;
+            line-height: 1.5;
+        }
+
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        blockquote {
+            border-left: 3px solid #e1e5e9;
+            padding-left: 16px;
+            margin: 12px 0;
+            color: #64748b;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        footer {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #f0f2f5;
+            color: #64748b;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Desktop */
+        @media (min-width: 1024px) {
+            .menu-icon {
+                display: none;
+            }
+
+            .desktop-nav {
+                display: flex;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .header {
+                padding: 20px 48px;
+            }
+
+            .main-content {
+                padding: 140px 48px 40px;
+                max-width: none;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .menu-icon {
+                display: block;
+            }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 767px) {
+            .header {
+                padding: 20px;
+            }
+
+            .main-content {
+                padding: 120px 20px 40px;
+            }
+
+            .main-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
 <body>
-<header>
-<h1>okbutwhat: Data & Debate Breakdowns</h1>
-<p>Exploring logical policy angles with datasets and X insights. Not your typical resume—more like a think tank preview.</p>
-<a href="https://somethingtoreport.com">News Feed</a> | <a href="https://substack.com/@narcissisthunter">Substack</a>
-</header>
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Header Section -->
+    <div class="header" id="header">
+        <div class="menu-icon" id="menuToggle">☰</div>
+        <a href="#" class="site-title">okbutwhat</a>
+        
+        <!-- Desktop Navigation with Dropdowns -->
+        <nav class="desktop-nav">
+            <ul>
+                <li>
+                    <a href="#">Projects</a>
+                    <ul>
+                        <li><a href="https://somethingtoreport.com">Automated News Agent</a></li>
+                        <li><a href="https://promptlyresumed.com">Research Lab Hub</a></li>
+                        <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Fetcher</a></li>
+                        <li><a href="#">Policy Analysis Engine</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Writing & Analysis</a>
+                    <ul>
+                        <li><a href="https://substack.com/@narcissisthunter">Substack Articles</a></li>
+                        <li><a href="#">Data Takedowns</a></li>
+                        <li><a href="#">Opinion Analysis</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Connect</a>
+                    <ul>
+                        <li><a href="#">Contact via X</a></li>
+                        <li><a href="https://github.com/spazedd">GitHub</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-<section>
-<h2>Key Projects</h2>
-<ul>
-<li>Data Takedowns: Modeling what-ifs on sovereignty policies with Python/SQL.</li>
-<li>X Opinion Analyzer: Fetching controversial research (view code below).</li>
-<li>Overthinking Patterns: Articles on trauma responses with econ data ties.</li>
-</ul>
-</section>
+    <!-- Mobile Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <h3>Projects</h3>
+            <ul>
+                <li><a href="https://somethingtoreport.com">Automated News Agent</a></li>
+                <li><a href="https://promptlyresumed.com">Research Lab Hub</a></li>
+                <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Fetcher</a></li>
+                <li><a href="#">Policy Analysis Engine</a></li>
+            </ul>
+        </div>
 
-<section>
-<h2>Tools & Demos</h2>
-<p>Run local scripts for fetches: <a href="https://github.com/spazedd/Hume/blob/main/app.py">X Fetch Code</a></p>
-</section>
+        <div class="sidebar-section">
+            <h3>Writing & Analysis</h3>
+            <ul>
+                <li><a href="https://substack.com/@narcissisthunter">Substack Articles</a></li>
+                <li><a href="#">Data Takedowns</a></li>
+                <li><a href="#">Opinion Analysis</a></li>
+            </ul>
+        </div>
 
-<footer><p>More coming—contact via X.</p></footer>
+        <div class="sidebar-section">
+            <h3>Connect</h3>
+            <ul>
+                <li><a href="#">Contact via X</a></li>
+                <li><a href="https://github.com/spazedd">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <h1 class="main-title">okbutwhat: Data & Debate Breakdowns</h1>
+            <p class="main-subtitle">Exploring logical policy angles with datasets and X insights. Not your typical resume—more like a think tank preview.</p>
+        </header>
+
+        <section>
+            <h2>About</h2>
+            <p>This is where I break down complex policy issues using data analysis, build automated tools for news aggregation, and explore the intersection of technology and governance.</p>
+            
+            <p>Through various projects and experiments, I'm building systems that can help understand and navigate the information landscape more effectively.</p>
+        </section>
+
+        <section>
+            <h2>Current Focus</h2>
+            <ul>
+                <li>
+                    <strong>Automated News Analysis:</strong> Using AI tools to process and summarize trending topics with real-time sentiment tracking.
+                </li>
+                <li>
+                    <strong>Research Experiments:</strong> Building interactive dashboards for data analysis using SQL, Python, and automated pipelines.
+                </li>
+                <li>
+                    <strong>Policy Modeling:</strong> Exploring sovereignty policies through data simulations and economic analysis.
+                </li>
+                <li>
+                    <strong>Technical Writing:</strong> Documenting the process and insights through articles and analysis pieces.
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Approach</h2>
+            <p>Instead of traditional analysis, I focus on building systems that can:</p>
+            <ul>
+                <li>Process large amounts of data automatically</li>
+                <li>Provide real-time insights into public discourse</li>
+                <li>Model policy impacts through simulation</li>
+                <li>Make complex topics more accessible through visualization</li>
+            </ul>
+            <blockquote>"If the doors of perception were cleansed, every thing would appear to man as it is: Infinite."</blockquote>
+        </section>
+
+        <footer>
+            <p>Building in public — contact via X (@ssicurity)</p>
+        </footer>
+    </div>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const header = document.getElementById('header');
+        let isOpen = false;
+
+        function toggleMenu() {
+            isOpen = !isOpen;
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function closeMenu() {
+            isOpen = false;
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // Scroll effect for header
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        menuToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        // Close menu when clicking links on mobile
+        if (window.innerWidth <= 1023) {
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeMenu);
+            });
+        }
+
+        // Handle escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isOpen) {
+                closeMenu();
+            }
+        });
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeMenu();
+            }
+        });
+    </script>
 </body>
 </html>
