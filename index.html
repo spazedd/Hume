@@ -17,7 +17,7 @@
             color: #1a1a1a;
             line-height: 1.5;
             font-weight: 400;
-            font-size: 16px; /* Good base font size */
+            font-size: 16px;
         }
 
         /* Header Section */
@@ -95,7 +95,7 @@
         .desktop-nav a {
             text-decoration: none;
             color: #666;
-            font-size: 15px; /* Increased from 14px */
+            font-size: 15px;
             font-weight: 500;
             transition: color 0.2s ease;
             position: relative;
@@ -110,7 +110,6 @@
             display: none;
             position: absolute;
             top: 100%;
-            left: 0;
             background: white;
             border: 1px solid #e1e5e9;
             border-radius: 6px;
@@ -118,6 +117,16 @@
             min-width: 200px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             z-index: 101;
+        }
+
+        /* Fix for left-aligned dropdowns */
+        .desktop-nav > ul > li:not(:last-child) > ul {
+            left: 0;
+        }
+
+        /* Fix for right-aligned dropdown (Connect) */
+        .desktop-nav > ul > li:last-child > ul {
+            right: 0;
         }
 
         .desktop-nav li ul li {
@@ -169,7 +178,7 @@
             width: 100%;
         }
 
-        /* Sidebar - Improved font sizes */
+        /* Sidebar - Simplified with less text */
         .sidebar {
             position: fixed;
             left: -220px;
@@ -201,10 +210,10 @@
             text-decoration: none;
             color: #424a53;
             display: block;
-            padding: 10px 12px; /* Slightly increased padding */
+            padding: 10px 12px;
             border-radius: 6px;
             transition: all 0.2s ease;
-            font-size: 15px; /* Increased from 14px */
+            font-size: 15px;
             font-weight: 500;
         }
 
@@ -218,7 +227,7 @@
         }
 
         .sidebar-section h3 {
-            font-size: 13px; /* Increased from 12px */
+            font-size: 13px;
             font-weight: 600;
             color: #666;
             text-transform: uppercase;
@@ -308,7 +317,7 @@
             margin: 8px 0;
             color: #64748b;
             font-style: italic;
-            font-size: 15px; /* Increased from 14px */
+            font-size: 15px;
         }
 
         footer {
@@ -400,7 +409,7 @@
             }
         }
 
-        /* Mobile adjustments - Added more specific mobile optimizations */
+        /* Mobile adjustments */
         @media (max-width: 767px) {
             .header {
                 padding: 16px 20px;
@@ -414,29 +423,28 @@
                 font-size: 1.8rem;
             }
             
-            /* Additional mobile font size improvements */
             .sidebar a {
-                font-size: 16px; /* Larger on mobile */
-                padding: 12px 14px; /* More touch-friendly */
+                font-size: 16px;
+                padding: 12px 14px;
             }
             
             .sidebar-section h3 {
-                font-size: 14px; /* Larger on mobile */
+                font-size: 14px;
             }
             
             p, li {
-                font-size: 16px; /* Slightly larger for mobile readability */
+                font-size: 16px;
             }
             
             blockquote {
-                font-size: 16px; /* Larger on mobile */
+                font-size: 16px;
             }
         }
         
         /* Extra small devices */
         @media (max-width: 480px) {
             .main-title {
-                font-size: 1.6rem; /* Slightly smaller on very small screens */
+                font-size: 1.6rem;
             }
             
             .main-subtitle {
@@ -457,30 +465,30 @@
         <div class="menu-icon" id="menuToggle">☰</div>
         <a href="#" class="site-title">okbutwhat</a>
         
-        <!-- Desktop Navigation with Dropdowns -->
+        <!-- Desktop Navigation with Dropdowns - Now contains sidebar content -->
         <nav class="desktop-nav">
             <ul>
                 <li>
                     <a href="#">Projects</a>
                     <ul>
-                        <li><a href="https://somethingtoreport.com">Automated News Agent</a></li>
-                        <li><a href="https://promptlyresumed.com">Research Lab Hub</a></li>
-                        <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Fetcher</a></li>
-                        <li><a href="#">Policy Analysis Engine</a></li>
+                        <li><a href="https://somethingtoreport.com">News Agent</a></li>
+                        <li><a href="https://promptlyresumed.com">Research Hub</a></li>
+                        <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Tool</a></li>
+                        <li><a href="#">Policy Engine</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Writing & Analysis</a>
+                    <a href="#">Writing</a>
                     <ul>
-                        <li><a href="https://substack.com/@narcissisthunter">Substack Articles</a></li>
-                        <li><a href="#">Data Takedowns</a></li>
-                        <li><a href="#">Opinion Analysis</a></li>
+                        <li><a href="https://substack.com/@narcissisthunter">Substack</a></li>
+                        <li><a href="#">Data Analysis</a></li>
+                        <li><a href="#">Opinion</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#">Connect</a>
                     <ul>
-                        <li><a href="#">Contact via X</a></li>
+                        <li><a href="#">X Contact</a></li>
                         <li><a href="https://github.com/spazedd">GitHub</a></li>
                     </ul>
                 </li>
@@ -488,31 +496,31 @@
         </nav>
     </div>
 
-    <!-- Mobile Sidebar -->
+    <!-- Mobile Sidebar - Simplified with less text -->
     <nav class="sidebar" id="sidebar">
         <div class="sidebar-section">
             <h3>Projects</h3>
             <ul>
-                <li><a href="https://somethingtoreport.com">Automated News Agent</a></li>
-                <li><a href="https://promptlyresumed.com">Research Lab Hub</a></li>
-                <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Fetcher</a></li>
-                <li><a href="#">Policy Analysis Engine</a></li>
+                <li><a href="https://somethingtoreport.com">News Agent</a></li>
+                <li><a href="https://promptlyresumed.com">Research Hub</a></li>
+                <li><a href="https://github.com/spazedd/Hume/blob/main/app.py">X Data Tool</a></li>
+                <li><a href="#">Policy Engine</a></li>
             </ul>
         </div>
 
         <div class="sidebar-section">
-            <h3>Writing & Analysis</h3>
+            <h3>Writing</h3>
             <ul>
-                <li><a href="https://substack.com/@narcissisthunter">Substack Articles</a></li>
-                <li><a href="#">Data Takedowns</a></li>
-                <li><a href="#">Opinion Analysis</a></li>
+                <li><a href="https://substack.com/@narcissisthunter">Substack</a></li>
+                <li><a href="#">Data Analysis</a></li>
+                <li><a href="#">Opinion</a></li>
             </ul>
         </div>
 
         <div class="sidebar-section">
             <h3>Connect</h3>
             <ul>
-                <li><a href="#">Contact via X</a></li>
+                <li><a href="#">X Contact</a></li>
                 <li><a href="https://github.com/spazedd">GitHub</a></li>
             </ul>
         </div>
