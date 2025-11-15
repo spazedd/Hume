@@ -8,79 +8,74 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: #111; line-height: 1.5; }
-    a { color: inherit; text-decoration: none; }
-    ul { list-style: none; }
-
-    /* Header */
-    .header {
-      position: fixed; top:0; left:0; right:0; z-index:1000;
-      background:#fff; border-bottom:1px solid #e5e7eb;
-      padding:16px 20px; display:flex; align-items:center;
-      transition: background .25s, border-color .25s, color .25s;
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fff; color: #111; line-height: 1.5;
     }
-    .header.scrolled { background:#111; border-color:#000; }
-    .header.scrolled .site-title, .header.scrolled .menu-icon, .header.scrolled .desktop-nav a { color:#fff; }
+    a { color: inherit; text-decoration: none; }
 
-    .menu-icon { font-size:20px; padding:6px; margin:-6px; cursor:pointer; color:#666; }
-    .site-title { font-weight:700; font-size:20px; margin-left:12px; letter-spacing:.5px; }
+    /* ===== Header ===== */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: #fff; border-bottom: 1px solid #e5e7eb;
+      padding: 16px 20px; display: flex; align-items: center;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .header.scrolled { background: #111; border-color: #000; }
+    .header.scrolled .site-title,
+    .header.scrolled .menu-icon,
+    .header.scrolled .desktop-nav a { color: #fff; }
+
+    .menu-icon { font-size: 20px; padding: 6px; margin: -6px; cursor: pointer; color:#666; }
+    .site-title { font-weight: 700; font-size: 20px; margin-left: 12px; letter-spacing: .5px; }
     .desktop-nav { display:none; margin-left:auto; }
     .desktop-nav > ul { display:flex; gap:28px; }
     .desktop-nav a { color:#666; font-weight:600; padding:8px 0; }
     .desktop-nav a:hover { color:#111; }
 
-    .overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); display:none; z-index:900; }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); display:none; z-index: 900; }
     .overlay.active { display:block; }
 
-    /* Sidebar */
+    /* ===== Sidebar ===== */
     .sidebar {
-      position:fixed; left:-220px; top:0; height:100vh; width:220px;
+      position: fixed; left:-220px; top:0; height:100vh; width:220px;
       background:#fafbfc; border-right:1px solid #e5e7eb; padding:64px 14px 16px;
-      transition:left .25s ease; z-index:950; overflow-y:auto;
+      transition:left .25s ease; z-index: 950; overflow-y:auto;
     }
     .sidebar.active { left:0; }
     .sidebar h3 { font-size:12px; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px 8px; }
     .sidebar a { display:block; padding:10px 12px; border-radius:6px; color:#374151; font-weight:600; }
     .sidebar a:hover { background:#eef2f7; }
 
-    /* Content */
-    .wrap { max-width:1024px; margin:0 auto; padding:120px 16px 40px; }
-    .masthead { text-align:center; border-bottom:2px solid #111; padding-bottom:14px; margin-bottom:18px; }
-    .masthead h1 { font-size:clamp(36px, 6.8vw, 84px); font-weight:800; letter-spacing:2px; }
+    /* ===== Content ===== */
+    .wrap { max-width: 1024px; margin: 0 auto; padding: 120px 16px 40px; }
+    .masthead { text-align:center; border-bottom: 2px solid #111; padding-bottom: 14px; margin-bottom: 18px; }
+    .masthead h1 { font-size: clamp(36px, 6.8vw, 84px); font-weight: 800; letter-spacing: 2px; }
 
-    /* Smaller lead image */
+    /* ===== Smaller lead image ===== */
     .lead-image {
-      display:none;                /* stays hidden until we detect a file */
-      margin: 12px auto 16px;
-      width: 60%;                  /* narrower overall */
-      max-width: 520px;            /* cap the size */
-      aspect-ratio: 3 / 2;         /* pleasant, not too tall */
-      background:#e5e7eb; border:1px solid #111;
-      background-size:cover; background-position:center;
-      filter:grayscale(100%);
+      display:none;
+      margin: 20px auto 30px;
+      width: 55%;             /* smaller width */
+      max-width: 500px;
+      aspect-ratio: 3 / 2;
+      background: #e5e7eb;
+      border: 1px solid #111;
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(100%);
     }
 
-    /* Drudge-style list */
-    .news-embed { margin-top: 10px; }
-    .news-embed h2 { text-align:center; margin:22px 0 12px; font-weight:800; }
-    #newsList { max-width:900px; margin:0 auto; }
-    .news-row { border-bottom:1px dotted #111; padding:12px 0; }
-    .news-title {
-      font-weight:800; cursor:pointer; line-height:1.3;
-      text-decoration:underline; background:none; border:none; padding:0;
-      text-align:left; width:100%;
+    footer {
+      text-align:center; color:#6b7280; font-size:14px;
+      margin-top: 40px; padding-top:18px; border-top:1px solid #e5e7eb;
     }
-    .news-title:focus { outline:2px dashed #111; outline-offset:2px; }
-    .news-details { display:none; margin-top:8px; font-weight:600; color:#374151; }
-    .source-btn { display:inline-block; margin-top:8px; padding:6px 10px; border:1px solid #111; border-radius:4px; font-weight:700; text-decoration:none; }
+    footer a { text-decoration: underline; }
 
-    footer { text-align:center; color:#6b7280; font-size:14px; margin-top:26px; padding-top:18px; border-top:1px solid #e5e7eb; }
-    footer a { text-decoration:underline; }
-
-    @media (min-width:1024px) {
+    @media (min-width: 1024px) {
       .desktop-nav { display:flex; }
       .menu-icon { display:none; }
-      .wrap { padding:140px 48px 48px; }
+      .wrap { padding: 140px 48px 48px; }
     }
   </style>
 </head>
@@ -108,22 +103,17 @@
   <main class="wrap" id="mainContent">
     <div class="masthead"><h1>OKBUTWHAT.COM</h1></div>
 
-    <!-- Auto-image block (upload /assets/frontpage.webp|jpg|png to show) -->
+    <!-- Smaller auto image -->
     <div class="lead-image" id="leadImage" role="img" aria-label="Lead image"></div>
 
-    <!-- News list -->
-    <section class="news-embed" id="newsEmbed">
-      <h2>LATEST FROM OKBUTWHAT NEWS</h2>
-      <div id="newsList" aria-live="polite"></div>
-    </section>
-
     <footer>
-      Building in public — follow on X <a href="https://x.com/okbutwhat_" target="_blank">@okbutwhat_</a>
+      Building in public — follow on X
+      <a href="https://x.com/okbutwhat_" target="_blank">@okbutwhat_</a>
     </footer>
   </main>
 
   <script>
-    // Sidebar + overlay controls
+    /* Sidebar toggle */
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('overlay');
@@ -135,80 +125,16 @@
     overlay?.addEventListener('click', closeMenu);
     document.addEventListener('keydown', e => { if (e.key==='Escape' && sidebar.classList.contains('active')) closeMenu(); });
 
-    // Header darkens on scroll
+    /* Header color on scroll */
     window.addEventListener('scroll', ()=>{ if (window.scrollY>20) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
 
-    // Auto-detect /assets/frontpage.* (small image block)
+    /* Auto-detect image */
     (async function(){
       const el = document.getElementById('leadImage');
       if (!el) return;
       const files = ['/assets/frontpage.webp','/assets/frontpage.jpg','/assets/frontpage.png'];
-      async function exists(url){ try { const r = await fetch(url+'?v='+Date.now(), {method:'HEAD', cache:'no-store'}); return r.ok; } catch { return false; } }
+      async function exists(url){ try { const r=await fetch(url+'?v='+Date.now(), {method:'HEAD', cache:'no-store'}); return r.ok; } catch { return false; } }
       for (const url of files){ if (await exists(url)) { el.style.backgroundImage=`url('${url}?v=${Date.now()}')`; el.style.display='block'; break; } }
-    })();
-
-    // News loader: fetch JSON your automation writes to github.io/data/news-YYYY-MM-DD.json
-    // (That filename is what your automation produces daily) :contentReference[oaicite:2]{index=2}
-    (function(){
-      const BASE = "https://spazedd.github.io/data";
-      const listEl = document.getElementById('newsList');
-      const h2 = document.querySelector('#newsEmbed h2');
-
-      function ymdUTC(d){ const y=d.getUTCFullYear(); const m=String(d.getUTCMonth()+1).padStart(2,'0'); const da=String(d.getUTCDate()).padStart(2,'0'); return `${y}-${m}-${da}`; }
-      async function fetchJSON(url){
-        try { const r = await fetch(url+'?v='+Date.now(), {cache:'no-store'}); if(!r.ok) return null; return await r.json(); }
-        catch { return null; }
-      }
-      async function findLatest(days=10){
-        for(let i=0;i<=days;i++){
-          const d=new Date(); d.setUTCDate(d.getUTCDate()-i);
-          const ds=ymdUTC(d);
-          const url=`${BASE}/news-${ds}.json`;
-          const data=await fetchJSON(url);
-          if (Array.isArray(data) && data.length) return {date:ds, items:data, url};
-        }
-        return null;
-      }
-      function rowTemplate(item, idx){
-        const title=item.title||"Untitled";
-        const details=item.details||item.summary||"";
-        const source=item.source||item.url||"";
-        const id=`news-${idx}`;
-        return `
-          <div class="news-row">
-            <button class="news-title" aria-expanded="false" aria-controls="${id}">${title}</button>
-            <div class="news-details" id="${id}">
-              ${details ? `<div>${details}</div>` : ""}
-              ${source ? `<a class="source-btn" href="${source}" target="_blank" rel="noopener">Source</a>` : ""}
-            </div>
-          </div>`;
-      }
-      function activateToggles(container){
-        container.querySelectorAll('.news-title').forEach(btn=>{
-          btn.addEventListener('click', ()=>{
-            const id=btn.getAttribute('aria-controls');
-            const panel=document.getElementById(id);
-            const open=btn.getAttribute('aria-expanded')==='true';
-            btn.setAttribute('aria-expanded', String(!open));
-            panel.style.display = open ? 'none' : 'block';
-          });
-          btn.addEventListener('keydown', e=>{
-            if(e.key==='Enter'||e.key===' '){ e.preventDefault(); btn.click(); }
-          });
-        });
-      }
-
-      (async ()=>{
-        const latest = await findLatest();
-        if(!latest){
-          listEl.innerHTML = `<div style="text-align:center; color:#b91c1c;">Couldn’t find recent news data in /data on spazedd.github.io</div>`;
-          return;
-        }
-        listEl.innerHTML = latest.items.map(rowTemplate).join('');
-        h2.textContent = `LATEST FROM OKBUTWHAT NEWS — ${latest.date}`;
-        activateToggles(listEl);
-        console.log("[OKBUTWHAT] loaded", latest.url);
-      })();
     })();
   </script>
 </body>
