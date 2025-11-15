@@ -3,14 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>okbutwhat.com</title>
+  <title>OKBUTWHAT.COM</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fff; color: #111; line-height: 1.5;
+      background: #fff;
+      color: #111;
+      line-height: 1.5;
     }
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
@@ -20,7 +22,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       background: #fff; border-bottom: 1px solid #e5e7eb;
       padding: 16px 20px; display: flex; align-items: center;
-      transition: background .25s ease, border-color .25s ease, color .25s ease;
+      transition: background .25s, border-color .25s, color .25s;
     }
     .header.scrolled { background: #111; border-color: #000; }
     .header.scrolled .site-title,
@@ -39,8 +41,9 @@
     /* Sidebar */
     .sidebar {
       position: fixed; left:-220px; top:0; height:100vh; width:220px;
-      background:#fafbfc; border-right:1px solid #e5e7eb; padding:64px 14px 16px;
-      transition:left .25s ease; z-index: 950; overflow-y:auto;
+      background:#fafbfc; border-right:1px solid #e5e7eb;
+      padding:64px 14px 16px; transition:left .25s ease;
+      z-index: 950; overflow-y:auto;
     }
     .sidebar.active { left:0; }
     .sidebar h3 { font-size:12px; color:#6b7280; text-transform:uppercase; letter-spacing:.5px; margin:16px 0 8px 8px; }
@@ -51,31 +54,42 @@
     .wrap { max-width: 1024px; margin: 0 auto; padding: 120px 16px 40px; }
     .masthead { text-align:center; border-bottom: 2px solid #111; padding-bottom: 14px; margin-bottom: 22px; }
     .masthead h1 { font-size: clamp(36px, 6.8vw, 84px); font-weight: 800; letter-spacing: 2px; }
-    .headline { text-align:center; margin: 12px auto 18px; max-width: 1000px; }
-    .headline h2 { font-size: clamp(28px, 4.2vw, 56px); font-weight: 800; line-height: 1.05; }
 
-    /* Lead image block (auto-populated via JS) */
+    /* Lead image — now smaller */
     .lead-image {
-      display:none; /* hidden until an image is found */
-      margin: 12px auto 12px; width: 100%; max-width: 900px; aspect-ratio: 3/1;
-      background: #e5e7eb; border: 1px solid #111;
-      background-size: cover; background-position: center; filter: grayscale(100%);
+      display:none;
+      margin: 14px auto 16px;
+      width: 100%;
+      max-width: 900px;    /* moderate width */
+      aspect-ratio: 3 / 1.6; /* slightly shorter */
+      background: #e5e7eb;
+      border: 1px solid #111;
+      background-size: cover;
+      background-position: center;
+      filter: grayscale(100%);
     }
 
-    /* ===== Drudge-style News List ===== */
-    .news-embed { margin-top: 24px; }
+    /* News section */
+    .news-embed { margin-top: 10px; }
     .news-embed h2 { text-align:center; margin:22px 0 12px; font-weight:800; }
     #newsList { max-width: 900px; margin: 0 auto; }
     .news-row { border-bottom: 1px dotted #111; padding: 12px 0; }
-    .news-title { font-weight: 800; cursor: pointer; line-height: 1.3; text-decoration: underline; }
+    .news-title {
+      font-weight: 800; cursor: pointer; line-height: 1.3;
+      text-decoration: underline; background:none; border:none;
+      padding:0; text-align:left; width:100%;
+    }
     .news-title:focus { outline: 2px dashed #111; outline-offset: 2px; }
     .news-details { display:none; margin-top: 8px; font-weight:600; color:#374151; }
     .source-btn {
       display:inline-block; margin-top: 8px; padding: 6px 10px;
-      border: 1px solid #111; border-radius: 4px; font-weight: 700; text-decoration: none;
+      border: 1px solid #111; border-radius: 4px; font-weight: 700;
+      text-decoration: none;
     }
 
-    footer { text-align:center; color:#6b7280; font-size: 14px; margin-top: 26px; padding-top: 18px; border-top: 1px solid #e5e7eb; }
+    footer { text-align:center; color:#6b7280; font-size: 14px;
+             margin-top: 26px; padding-top: 18px;
+             border-top: 1px solid #e5e7eb; }
     footer a { text-decoration: underline; }
 
     @media (min-width: 1024px) {
@@ -93,7 +107,6 @@
     <a class="site-title" href="/">okbutwhat</a>
     <nav class="desktop-nav">
       <ul>
-        <!-- Cleaned: only News Agent + X -->
         <li><a href="https://somethingtoreport.com" target="_blank">News Agent</a></li>
         <li><a href="https://x.com/okbutwhat_" target="_blank">@okbutwhat_</a></li>
       </ul>
@@ -109,13 +122,8 @@
 
   <main class="wrap" id="mainContent">
     <div class="masthead"><h1>OKBUTWHAT.COM</h1></div>
-
-    <div class="headline"><h2>PROTESTS ERUPT IN MANY CITIES</h2></div>
-
-    <!-- Auto-image block (shows automatically if /assets/frontpage.* exists) -->
     <div class="lead-image" id="leadImage" role="img" aria-label="Lead image"></div>
 
-    <!-- ===== Embedded News (Drudge-style) ===== -->
     <section class="news-embed" id="newsEmbed">
       <h2>LATEST FROM OKBUTWHAT NEWS</h2>
       <div id="newsList" aria-live="polite"></div>
@@ -128,131 +136,97 @@
   </main>
 
   <script>
-    // Sidebar + overlay controls
+    /* Sidebar + Overlay */
     const menuToggle = document.getElementById('menuToggle');
-    const sidebar    = document.getElementById('sidebar');
-    const overlay    = document.getElementById('overlay');
-    const header     = document.getElementById('header');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const header = document.getElementById('header');
 
-    function openMenu() { sidebar.classList.add('active'); overlay.classList.add('active'); }
-    function closeMenu() { sidebar.classList.remove('active'); overlay.classList.remove('active'); }
-
-    menuToggle?.addEventListener('click', () => {
-      sidebar.classList.contains('active') ? closeMenu() : openMenu();
-    });
+    function openMenu(){ sidebar.classList.add('active'); overlay.classList.add('active'); }
+    function closeMenu(){ sidebar.classList.remove('active'); overlay.classList.remove('active'); }
+    menuToggle?.addEventListener('click', ()=> sidebar.classList.contains('active') ? closeMenu() : openMenu());
     overlay?.addEventListener('click', closeMenu);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sidebar.classList.contains('active')) closeMenu();
-    });
+    document.addEventListener('keydown', e => { if (e.key==='Escape' && sidebar.classList.contains('active')) closeMenu(); });
 
-    // Header darkens on scroll
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) header.classList.add('scrolled');
-      else header.classList.remove('scrolled');
-    });
+    window.addEventListener('scroll', ()=>{ if (window.scrollY>20) header.classList.add('scrolled'); else header.classList.remove('scrolled'); });
 
-    // ===== AUTO-IMAGE LOADER =====
-    // Checks for /assets/frontpage.webp|jpg|png (in that order).
-    // If found, sets it as the background-image and shows the block.
+    /* Auto-load image if exists */
     (async function(){
       const el = document.getElementById('leadImage');
       if (!el) return;
-
-      const candidates = [
-        '/assets/frontpage.webp',
-        '/assets/frontpage.jpg',
-        '/assets/frontpage.png'
-      ];
-
-      async function exists(url){
-        try {
-          // Cache-busting query to avoid stale CDN; HEAD keeps it light.
-          const r = await fetch(url + '?v=' + Date.now(), { method: 'HEAD', cache: 'no-store' });
-          return r.ok;
-        } catch { return false; }
-      }
-
-      for (const url of candidates) {
-        if (await exists(url)) {
-          el.style.backgroundImage = `url('${url}?v=${Date.now()}')`;
-          el.style.display = 'block';
-          break;
-        }
-      }
+      const files = ['/assets/frontpage.webp','/assets/frontpage.jpg','/assets/frontpage.png'];
+      async function exists(url){ try { const r = await fetch(url+'?v='+Date.now(), {method:'HEAD', cache:'no-store'}); return r.ok; } catch { return false; } }
+      for (const url of files){ if (await exists(url)) { el.style.backgroundImage = `url('${url}?v=${Date.now()}')`; el.style.display='block'; break; } }
     })();
 
-    // ===== Drudge-style News embed (no tokens; static fetch) =====
+    /* News loader with clear diagnostics */
     (function(){
       const BASE = "https://spazedd.github.io/data";
       const listEl = document.getElementById('newsList');
+      const headingEl = document.querySelector('#newsEmbed h2');
 
-      function ymd(d){ return d.toISOString().slice(0,10); }
-      async function fetchJSON(u){
+      function log(...a){ console.log("[OKBUTWHAT news]", ...a); }
+      function ymdUTC(d){ const y=d.getUTCFullYear(); const m=String(d.getUTCMonth()+1).padStart(2,'0'); const da=String(d.getUTCDate()).padStart(2,'0'); return `${y}-${m}-${da}`; }
+
+      async function tryFile(url){
         try {
-          const r = await fetch(u, { cache: 'no-store' });
+          const r = await fetch(url+'?v='+Date.now(), {cache:'no-store'});
           if (!r.ok) return null;
-          return await r.json();
-        } catch { return null; }
+          const j = await r.json();
+          if (Array.isArray(j)) return j;
+          if (Array.isArray(j.articles)) return j.articles;
+          if (Array.isArray(j.items)) return j.items;
+          if (typeof j==='object') return Object.values(j);
+        } catch(err){ log("error", err); }
+        return null;
       }
-      async function getLatestNews(maxDaysBack=10){
-        for (let i=0;i<=maxDaysBack;i++){
-          const d = new Date(); d.setDate(d.getDate()-i);
-          const url = `${BASE}/news-${ymd(d)}.json`;
-          const data = await fetchJSON(url);
-          if (Array.isArray(data) && data.length) return {date: ymd(d), items: data};
+
+      async function findLatest(){
+        for (let i=0;i<10;i++){
+          const d=new Date(); d.setUTCDate(d.getUTCDate()-i);
+          const date=ymdUTC(d);
+          const paths=[`${BASE}/news-${date}.json`, `${BASE}/${date}.json`];
+          for (const p of paths){
+            const data=await tryFile(p);
+            if (data && data.length){ log("loaded", p); return {data,date,p}; }
+          }
         }
         return null;
       }
-      function rowTemplate(item, idx){
-        const title = item.title || "Untitled";
-        const details = item.details || item.summary || "";
-        const source = item.source || item.url || "";
-        const id = `news-${idx}`;
 
-        return `
-          <div class="news-row">
-            <button class="news-title" aria-expanded="false" aria-controls="${id}">
-              ${title}
-            </button>
-            <div class="news-details" id="${id}">
-              ${details ? `<div>${details}</div>` : ""}
-              ${source ? `<a class="source-btn" href="${source}" target="_blank" rel="noopener">Source</a>` : ""}
-            </div>
-          </div>
-        `;
-      }
-      function enhanceInteractivity(container){
-        container.querySelectorAll('.news-title').forEach(btn=>{
+      function render(items, date){
+        listEl.innerHTML = items.map((a,i)=>{
+          const t=a.title||a.headline||"Untitled";
+          const d=a.details||a.summary||a.description||"";
+          const s=a.source||a.url||a.link||"";
+          return `
+            <div class="news-row">
+              <button class="news-title" aria-expanded="false" aria-controls="n${i}">${t}</button>
+              <div class="news-details" id="n${i}">
+                ${d?`<div>${d}</div>`:""}
+                ${s?`<a class="source-btn" href="${s}" target="_blank">Source</a>`:""}
+              </div>
+            </div>`;
+        }).join('');
+        headingEl.textContent = `LATEST FROM OKBUTWHAT NEWS — ${date}`;
+        listEl.querySelectorAll('.news-title').forEach(btn=>{
           btn.addEventListener('click', ()=>{
-            const targetId = btn.getAttribute('aria-controls');
-            const panel = document.getElementById(targetId);
-            const isOpen = btn.getAttribute('aria-expanded') === 'true';
-            btn.setAttribute('aria-expanded', String(!isOpen));
-            panel.style.display = isOpen ? 'none' : 'block';
-          });
-          btn.addEventListener('keydown', (e)=>{
-            if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); btn.click(); }
+            const id=btn.getAttribute('aria-controls');
+            const d=document.getElementById(id);
+            const open=btn.getAttribute('aria-expanded')==='true';
+            btn.setAttribute('aria-expanded', !open);
+            d.style.display=open?'none':'block';
           });
         });
       }
-      function render(items, dateStr){
-        if (!items || !items.length) {
-          listEl.innerHTML = `<div style="text-align:center; color:#6b7280;">No news found.</div>`;
-          return;
-        }
-        listEl.innerHTML = items.map(rowTemplate).join('');
-        const h2 = listEl.parentElement.querySelector('h2');
-        if (h2) h2.textContent = `LATEST FROM OKBUTWHAT NEWS — ${dateStr}`;
-        enhanceInteractivity(listEl);
-      }
 
-      (async ()=>{
-        const latest = await getLatestNews();
-        if (!latest) {
-          listEl.innerHTML = `<div style="text-align:center; color:#6b7280;">No news data found yet.</div>`;
+      (async()=>{
+        const result = await findLatest();
+        if (!result){
+          listEl.innerHTML = `<div style="text-align:center;color:#b91c1c;">Couldn’t find recent news data in /data folder on spazedd.github.io</div>`;
           return;
         }
-        render(latest.items, latest.date);
+        render(result.data, result.date);
       })();
     })();
   </script>
